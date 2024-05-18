@@ -74,3 +74,5 @@ CloudCine is a powerful video streaming platform that allows users to upload, st
 
 If you have any feedback, please reach out to us at anuragganvir2019@gmail.com
 
+## 💾Screenshot
+![Front Page](static/images/icon/CloudCine-Home.png)
