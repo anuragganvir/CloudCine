@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Video</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@14.6.4/distribute/nouislider.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        /* Center the video and the buttons */
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #cbcbe9;
+        }
+        /* Set a fixed width and height for the video */
+        video {
+            width: 800px;
+            height: 450px;
+            margin-bottom: 20px;
+        }
+        #preview {
+            width: 200%;
+            max-width: 600px;
+            border: 3px solid #1d1a15; /* Vibrant orange border */
+            box-shadow: 0 0 70px rgba(106, 18, 207, 0.7); /* Larger shadow effect */
+            background-color: #00000230; /* Semi-transparent dark background */
+            position: relative; /* Required for pseudo-element positioning */
+        }
+         /* Animation for changing border colors */
+         @keyframes colorChange {
+            0% { border-color: #d9e717; } /* Tomato */
+            25% { border-color: #1e90ff; } /* Dodger Blue */
+            50% { border-color: #343ef1; } /* Lime Green */
+            75% { border-color: #480929; } /* Hot Pink */
+            100% { border-color: #ff0000; } /* Orange */
+        }
+
+        /* Apply the animation to the video preview */
+        #preview {
+            animation: colorChange 7s infinite alternate; /* Change colors every 5 seconds */
+        }
+
+        /* Glow effect */
+        #videoPlayer::after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid #ffa500; /* Orange glow color */
+            border-radius: 15px;
+            opacity: 0.7;
+            animation: glow 2s infinite alternate; /* Subtle pulsating glow effect */
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px rgba(255, 165, 0, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(255, 165, 0, 0.8); }
+        }
+        /* Set a fixed width for the slider and hide it by default */
+        #timeRange, #trimRange {
+            width: 800px;  /* Make the sliders as wide as the video */
+            display: none;  /* Hide the sliders by default */
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 800px;
+            margin-bottom: 20px;
+        }
+        .button-container button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .button-container button:active {
+            background-color: #003f7f;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* .but{
+            margin-bottom: 10px;
+        } */
+        .but {background-color: #131e97; /* Green background */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+	        border: 2px solid #2f1ea1;
+	        transition: .5s;
+        }
+
+
+        .but:hover {
+            background-color: #f6f6f6;
+        	color: #2f1ea1;
+        }
+
+        /* footer new */
+        .footer{
+	background-color: #24262b;
+    padding: 70px 0;
+	padding-bottom: 0px;
+    
+}
+.footer-col{
+   width: 25%;
+   padding: 0 15px;
+   
+  
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+    
+	position: relative;
+    
+}
+.footer-col h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #0091ff;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+    
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+	color: #bbbbbb;
+	display: block;
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+.footer-col .social-links a{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(255,255,255,0.2);
+	margin:0 10px 10px 0;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #ffffff;
+	transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+    
+}
+}
+
+/* footer edit */
+footer {
+  background-color: #5226cb;
+  color: white; /* For text color, you can use white or another contrasting color */
+  padding: 20px; /* Adjust padding as needed */
+}
+
+/* If you want the icons to be white (assuming they are font icons) */
+footer a {
+  color: white;
+  text-decoration: none; /* Remove underlines from links */
+  margin: 5px; /* Adjust spacing between icons */
+}
+
+/* Add hover effect for icons (optional) */
+footer a:hover {
+  opacity: 0.8; /* Slightly reduce opacity on hover */
+}
+
+@media screen and (max-width: 700px) {
+	footer .btn{
+		margin: 0;
+		width: 100%;
+		margin-top: 20px;
+	}
+	.svg-image img {
+		width: 90%;
+		margin: 20px;
+		/* align-self: center; */
+	}
+}
+
+.mui-style-1azjl7a-rightsSection {
+    display: flex; /* Use flexbox to align items */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    padding: 5px;
+	padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 0px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04)), rgb(23, 24, 26);
+}
+
+/* Additional styles for the p tag if needed */
+.mui-style-1ydwkpd {
+    text-align: center; /* Ensure text is centered */
+    width: 100%; /* Full width to center text properly */
+	
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="center">
+        <H1>Video Editing Workspace</H1>
+
+        <video id="videoPlayer" src="{{ url }}" controls></video>  <!-- Use the passed URL -->
+        <div class="button-group">
+            <button onclick="showSlider()" class="but">Cut</button>
+            <button onclick="showTrimSlider()" class="but">Trim</button>
+            <button onclick="muteVideo()" class="but">Mute</button>
+        </div><br>
+        <div class="button-group">
+            <button onclick="rotateVideo(90)" class="but">Rotate 90</button>
+            <button onclick="rotateVideo(180)" class="but">Rotate 180</button>
+            <button onclick="rotateVideo(270)" class="but">Rotate 270</button>
+            <button onclick="rotateVideo(360)" class="but">Rotate 360</button>
+        </div><br>
+        <button onclick="filter()" class="but">Filter</button><br>
+        <div id="timeRange"></div>
+        <div id="trimRange"></div>
+        <button onclick="saveVideo()" class="but">Save</button>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+		<div class="container">
+			<div class="row" style="display: flex;">
+				<div class="footer-col">
+					<h4>company</h4>
+					<ul>
+						<li><a href="#">about us</a></li>						
+
+						<li><a href="#">services</a></li>
+						<li><a href="#">affiliate program</a></li>
+						<li><a href="#feedBACK">contact me at</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>get help</h4>
+					<ul>
+						<li><a href="http://127.0.0.1:5502/templates/faq.html">FAQ</a></li>
+						<li><a href="http://127.0.0.1:5502/templates/faq.html">questions</a></li>
+						<li><a href="#">payment options</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>follow us</h4>
+					<div class="social-links">
+						<a href="#"><i class="fab fa-facebook-f"></i></a>
+						<a href="#"><i class="fab fa-twitter"></i></a>
+						<a href="#"><i class="fab fa-instagram"></i></a>
+						<a href="#"><i class="fab fa-linkedin-in"></i></a>
+					</div>
+				</div>
+				<div class="footer-container">
+					<img src="../static/images/icon/CloudCinelogos.png" alt="" style="width: 200px;">
+
+				</div>
+			</div>
+		</div>
+		<div class="mui-style-1azjl7a-rightsSection">
+			<p class="MuiTypography-root MuiTypography-body1Regular mui-style-1ydwkpd" style="text-align: center;">Copyright © 2024 CloudCine All rights reserved. </p>
+			<!-- <span style="box-sizing: border-box; display: inline-block; overflow: hidden; width: 48px; height: 48px; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;">
+				<img alt="" src="" decoding="async" data-nimg="fixed" style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"><noscript></noscript>
+			</span> -->
+		</div>
+   </footer>
+    <!-- footer\ -->
+
+    <script src="https://cdn.jsdelivr.net/npm/nouislider@14.6.4/distribute/nouislider.min.js"></script>
+    <script>
+        // Get the video and slider elements
+        const videoPlayer = document.getElementById('videoPlayer');
+        const timeRange = document.getElementById('timeRange');
+        const trimRange = document.getElementById('trimRange');
+
+        // Initialize the sliders
+        const slider = noUiSlider.create(timeRange, {
+            start: [0, 0],  // Start values for the two handles
+            connect: true,  // Display a colored bar between the handles
+            range: {
+                'min': 0,
+                'max': 1  // This will be updated when the video's metadata is loaded
+            }
+        });
+
+        const trimSlider = noUiSlider.create(trimRange, {
+            start: [0],  // Start value for the single handle
+            range: {
+                'min': 0,
+                'max': 1  // This will be updated when the video's metadata is loaded
+            }
+        });
+
+        // Update the sliders' max values when the video's metadata is loaded
+        videoPlayer.addEventListener('loadedmetadata', function() {
+            const max = videoPlayer.duration;
+            slider.updateOptions({ range: { 'min': 0, 'max': max } });
+            slider.set([0, max]);
+            trimSlider.updateOptions({ range: { 'min': 0, 'max': max } });
+            trimSlider.set([0]);
+        });
+
+        // Update the video's current time when the sliders' values change
+        slider.on('slide', function(values) {
+            videoPlayer.currentTime = Math.min(...values);  // Use the minimum handle's value
+        });
+        trimSlider.on('slide', function(values) {
+            videoPlayer.currentTime = values[0];  // Use the handle's value
+        });
+
+        function showSlider() {
+            // Show the cut slider and hide the trim slider
+            timeRange.style.display = 'block';
+            trimRange.style.display = 'none';
+        }
+
+        function showTrimSlider() {
+            // Show the trim slider and hide the cut slider
+            trimRange.style.display = 'block';
+            timeRange.style.display = 'none';
+        }
+
+        function muteVideo() {
+            // Mute the video
+            videoPlayer.muted = true;
+        }
+
+        function rotateVideo(degrees) {
+            // Rotate the video
+            videoPlayer.style.transform = 'rotate(' + degrees + 'deg)';
+        }
+
+        function saveVideo() {
+            const [startTime, endTime] = slider.get();  // Get the slider's values
+            const [trimTime] = trimSlider.get();  // Get the trim slider's value
+            console.log('Save video from ' + startTime + ' to ' + endTime);
+                
+            // Extract the filename from the URL
+            const url = window.location.pathname;
+            const filename = url.substring(url.lastIndexOf('/') + 1);
+                
+            // Send the start and end times to your server
+            fetch('/save/' + filename, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    start: startTime,
+                    end: endTime,
+                    trim: trimTime,
+                    rotate: 90,  // replace with the actual rotation angle
+                    mute: true,  // replace with the actual mute value
+                    filter: 'colorx'  // replace with the actual filter name
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Display a pop-up message when the video is saved successfully
+                if (data.message === 'Video cut and uploaded to S3 successfully') {
+                    alert('Video saved successfully!');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Comaptible" content="IE=edge">
+    <title>CloudCine</title>
+	<link rel="shortcut icon" type="png" href="../static/images/icon/CloudCinelogos.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/script.js') }}">
+    <script>
+		$(window).on('scroll', function(){
+  			if($(window).scrollTop()){
+  			  $('nav').addClass('black');
+ 			 }else {
+ 		   $('nav').removeClass('black');
+ 		 }
+		});
+
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<style>
+		.service-swipe {
+			background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7)), url("{{ url_for('static', filename='images/extra/b3.jpg') }}");;
+			background-size: cover;
+			background-position: center;
+		}
+
+				/* .diffSection {
+			width: 100%;
+			position: relative;
+			justify-content: center;
+			align-items: center;
+		}
+		.diffSection .content {
+			margin: 10px;
+			text-align: center;
+			padding: 10px 100px;
+			font-size: 1.1em;
+		} */
+		.shadowed-navbar {
+    border-bottom: 1px solid #000000; /* This sets a thin blue line as the bottom border */
+}
+/*font forst page*/
+
+/* \\\\\\\\\\\\\\\\ */
+
+		</style>
+		
+		
+		
+</head>
+<body>
+    <header id="header">
+		<nav class="shadowed-navbar">
+			<div class="logo"><a href="#moral"><img src="../static/images/icon/CloudCinelogos.png" alt="logo"></a></div>
+			<ul>
+				<li><a class="logo" id="moral" href="#home-section">Home</a></li>
+				<li><a href="#video_section">Video Upload</a></li>
+				<li><a href="#editing-section">Editing</a></li>
+				<li><a href="#services_section">Services</a></li>
+				<li><a href="#contactus_section">Contact</a></li>
+			</ul>
+			<div class="srch">
+				<input type="text" class="search" placeholder="Search here...">
+				<i class="fa-solid fa-magnifying-glass" style="color: #1724de;"></i>
+			</div>
+			<a class="get-started" href="login.html">Get Started</a>
+			<img src="../static/images/icon/menu.png" class="menu" onclick="sideMenu(0)" alt="menu">
+		</nav>
+		
+		<div class="head-container">
+			<div class="quote">
+				<p>"Unlocking Boundless Entertainment: The Rise of Cloud Streaming Services"				</p>
+				<h5>"Cloud streaming revolutionizes entertainment by offering instant access to a vast library of content without the need for downloads or installations. Through seamless connectivity, users can enjoy movies, music, and games from any device, anywhere with an internet connection."</h5>
+				<div class="play">
+					<i class="fa-regular fa-circle-play" style="color: #1724de;"></i><span><a href="https://youtube.com" target="_blank">Watch Now</a></span>
+				</div>
+			</div>
+			<div class="svg-image">
+				<img src="../static/images/icon/svg1.png" alt="png">
+			</div>
+		</div>
+		<div class="side-menu" id="side-menu">
+			<div class="close" onclick="sideMenu(1)"><img src="images/icon/close.png" alt=""></div>
+			<div class="user">
+				<img src="../static/images/icon/CloudCinelogos.png" alt="Username">
+				<p>@anurag</p>
+			</div>
+			<ul>
+				<li><a href="#about_section">About</a></li>
+				<li><a href="#video_section">Video Upload</a></li>
+				<!-- <li><a href="#team_section">Team</a></li> -->
+				<li><a href="#services_section">Editing</a></li>
+				<li><a href="#contactus_section">Contact</a></li>
+				<li><a href="#feedBACK">Feedback</a></li>
+			</ul>
+		</div>
+	</header>
+
+
+	<div class="title" id="video_section">
+		<center><p style="font-size: 45px; padding: 100px; padding-top: 10px;">Video Access</p></center><span></span>
+	</div>
+    <center>
+        <div class="cbox" id="okd">
+            <div class="det">
+                <!-- My Videos -->
+                <a href="/videos" style="background-color: #ffffff; color: rgb(0, 0, 0); padding: 15px 25px; display: inline-block; font-size: 16px; text-decoration: none;">
+                    <i class="fa-solid fa-caret-square-right">My Videos</i>
+                </a>
+            </div>
+            <div class="det">
+                <!-- Upload Videos -->
+                <a href="/upload" style="background-color: #ffffff; color: rgb(0, 0, 0); padding: 15px 25px; display: inline-block; font-size: 16px; text-decoration: none;">
+                    <i class="fa-solid fa-upload">Upload Videos</i>
+                </a>
+            </div>
+        </div>
+    </center>    
+    
+    <!-- <a href="/upload">Upload videos</a>
+    <a href="/videos">See Myvideos</a> -->
+
+    <div class="title" id="editing-section">
+		<center><p style="font-size: 45px; padding: 100px">Editing tools</p></center><span></span>
+	</div>
+	<br><br>
+	<div class="course">
+		<center><div class="cbox" >
+		<div class="det"><a href="{{ url_for('videos') }}"><i class="fa-solid fa-scissors fa-spin fa-spin-reverse" style="color: #e53434;"></i>   Trim & Cut Videos</a></div>
+		<div class="det"><a href="{{ url_for('videos') }}"><img src="../static/../static/images/courses/d1.png">Rotate Videos</a></div>
+		<div class="det"><a href="{{ url_for('videos') }}"><img src="../static/../static/images/courses/paper.png">Filter Videos</a></div>
+		<!-- <div class="det"><a href="Online_Vid_Editor/video-editor.html"><img src="../static/../static/images/courses/d1.png">Add Music</a></div> -->
+		</div></center>
+	
+	</div>  
+
+    <!-- ABOUT -->
+	<!-- <div class="diffSection" id="about_section">
+		<center><p style="font-size: 50px; padding: 100px">About</p></center>
+		<div class="about-content">
+				<div class="side-image">
+					<img class="sideImage" src="../static/images/extra/e3.jpg">
+				</div>
+				<div class="side-text">
+					<h2>About us ?</h2>
+					<p>Welcome to Video Cloud Streaming Platform, a space where innovation and collaboration transform video creation and sharing. Our mission is to empower storytellers, teams, and businesses worldwide with cutting-edge, cloud-based tools for seamless video production and editing. Inspired by the collaborative spirit of digital evolution, our platform offers a unique environment for creators to co-create, share, and inspire with secure, high-quality video content. Join us in shaping the future of storytelling, where your vision meets endless possibilities in a community dedicated to bringing great stories to life.</p>
+				</div>
+		</div>
+	</div> -->
+
+    <!-- SERVICES -->
+	<div class="service-swipe">
+		<div class="diffSection" id="services_section">
+		<center><p style="font-size: 50px; padding: 100px; padding-bottom: 40px; color: #fff;">Services</p></center>
+		</div>
+		<a href="subjects/computer_courses.html"><div class="s-card"><img src="../static/images/icon/computer-courses.png"><p>Cloud-Based Video Uploads</p></div></a>
+		<a href="subjects/jee.html"><div class="s-card"><img src="../static/images/icon/brainbooster.png"><p>Collaborative Video Editing</p></div></a>
+		<a href="#"><div class="s-card"><img src="../static/images/icon/online-tutorials.png"><p>Version Control for Videos</p></div></a>
+		<a href="subjects/jee.html#sample_papers"><div class="s-card"><img src="../static/images/icon/papers.jpg"><p>Access Control and Permissions</p></div></a>
+		<a href="#"><div class="s-card"><img src="../static/images/icon/p3.png"><p>Real-Time Commenting and Feedback</p></div></a>
+		<a href="#contactus_section"><div class="s-card"><img src="../static/images/icon/discussion.png"><p>Analytics and Insights</p></div></a>
+		<a href="subjects/quiz.html"><div class="s-card"><img src="../static/images/icon/Int w Third-P Tools.png"><p>Integration with Third-Party Tools</p></div></a>
+		<a href="#contactus_section"><div class="s-card"><img src="../static/images/icon/help.png"><p>Secure Storage and Backup</p></div></a>
+	</div>
+
+
+
+    <!-- CONTACT US -->
+	<div class="diffSection" id="contactus_section">
+		<center><p style="font-size: 50px; padding: 100px">Contact Us</p></center>
+		<div class="csec"></div>
+		<div class="back-contact">
+			<div class="cc">
+			<form action="mailto:anuragganvir2019@gmail.com" method="post" enctype="text/plain">
+				<label>First Name <span class="imp">*</span></label><label style="margin-left: 185px">Last Name <span class="imp">*</span></label><br>
+				<center>
+				<input type="text" name="" style="margin-right: 10px; width: 175px" required="required"><input type="text" name="lname" style="width: 175px" required="required"><br>
+				</center>
+				<label>Email <span class="imp">*</span></label><br>
+				<input type="email" name="mail" style="width: 100%" required="required"><br>
+				<label>Message <span class="imp">*</span></label><br>
+				<input type="text" name="message" style="width: 100%" required="required"><br>
+				<label>Additional Details</label><br>
+				<textarea name="addtional"></textarea><br>
+				<button type="submit" id="csubmit">Send Message</button>
+			</form>
+			</div>
+		</div>
+	</div>
+
+
+<!-- FEEDBACK -->
+	<div class="title2" id="feedBACK">
+		<span>Give Feedback</span>
+		<div class="shortdesc2">
+			<p>Please share your valuable feedback to us</p>
+		</div>
+	</div>
+
+	<div class="feedbox">
+		<div class="feed">
+			<form action="mailto:anuragganvir2019@gmail.com" method="post" enctype="text/plain">
+				<label>Your Name</label><br>
+				<input type="text" name="" class="fname" required="required"><br>
+				<label>Email</label><br>
+				<input type="email" name="mail" required="required"><br>
+				<label>Additional Details</label><br>
+				<textarea name="addtional"></textarea><br>
+				<button type="submit" id="csubmit">Send Message</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	 <!-- <footer>
+		<div class="footer-container">
+			<div class="left-col">
+				<img src="../static/images/icon/CloudCinelogos.png" style="width: 200px;">
+				<div class="logo"></div>
+				<div class="social-media">
+					<a href="#"><img src="../static/images/icon\fb.png"></a>
+					<a href="#"><img src="../static/images/icon\insta.png"></a>
+					<a href="#"><img src="../static/images/icon\tt.png"></a>
+					<a href="#"><img src="../static/images/icon\ytube.png"></a>
+					<a href="#"><img src="../static/images/icon\linkedin.png"></a>
+				</div><br><br>
+				<p class="rights-text">Copyright © CloudCine.</p>
+				<br><p><img src="../static/images/icon/location.png"> <br>Pune, Maharashtra</p><br>
+				<p><img src="../static/images/icon/phone.png"> +91-xxxx-xxx-xxx<br><img src="../static/images/icon/mail.png">&nbsp; abc@xyz.com</p>
+			</div>
+		</div>
+	</footer>  -->
+
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="footer-col">
+					<h4>company</h4>
+					<ul>
+						<li><a href="#">about</a></li>						
+						<li><a href="#">us</a></a></li>						
+						<li><a href="#">services</a></li>
+						<li><a href="#">affiliate program</a></li>
+						<li><a href="#feedBACK">contact me</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>get help</h4>
+					<ul>
+						<li><a href="faq.html">FAQ</a></li>
+						<li><a href="faq.html">questions</a></li>
+						<li><a href="#">payment options</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>follow us</h4>
+					<div class="social-links">
+						<a href="#"><i class="fab fa-facebook-f"></i></a>
+						<a href="#"><i class="fab fa-twitter"></i></a>
+						<a href="#"><i class="fab fa-instagram"></i></a>
+						<a href="#"><i class="fab fa-linkedin-in"></i></a>
+					</div>
+				</div>
+				<div class="footer-container">
+					<img src="../static/images/icon/CloudCinelogos.png" alt="" style="width: 200px;">
+
+				</div>
+			</div>
+		</div>
+		<div class="mui-style-1azjl7a-rightsSection">
+			<p class="MuiTypography-root MuiTypography-body1Regular mui-style-1ydwkpd" style="text-align: center;">Copyright © 2024 CloudCine All rights reserved. </p>
+			<!-- <span style="box-sizing: border-box; display: inline-block; overflow: hidden; width: 48px; height: 48px; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;">
+				<img alt="" src="" decoding="async" data-nimg="fixed" style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"><noscript></noscript>
+			</span> -->
+		</div>
+   </footer>
+
+
+</body>
+</html>
